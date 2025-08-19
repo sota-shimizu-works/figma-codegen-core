@@ -16,6 +16,24 @@ export function parseFrameNode(node: any): FrameNode | BoxNode {
     style.backgroundColor = rgbaFromColor(node.fills[0].color);
   }
 
+  if (node.layoutMode === "HORIZONTAL") {
+    style.display = "flex";
+    style.flexDirection = "row";
+  }
+
+  if (typeof node.paddingTop === "number") {
+    style.paddingTop = node.paddingTop;
+  }
+  if (typeof node.paddingRight === "number") {
+    style.paddingRight = node.paddingRight;
+  }
+  if (typeof node.paddingBottom === "number") {
+    style.paddingBottom = node.paddingBottom;
+  }
+  if (typeof node.paddingLeft === "number") {
+    style.paddingLeft = node.paddingLeft;
+  }
+
   return { type: "box", style };
 }
 

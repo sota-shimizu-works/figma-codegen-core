@@ -12,6 +12,12 @@ export type StyleProps = {
   lineHeight?: number;
   fontFamily?: string;
   backgroundColor?: string;
+  display?: string;
+  flexDirection?: string;
+  paddingTop?: number;
+  paddingRight?: number;
+  paddingBottom?: number;
+  paddingLeft?: number;
 };
 
 export type FrameNode = BaseNode & {
