@@ -33,4 +33,6 @@ export type StyleProps = {
   fontSize?: number;
   fontWeight?: number;
   color?: string;
+  lineHeight?: number;
+  fontFamily?: string;
 };
