@@ -1,10 +1,23 @@
-export type NodeElement = BoxNode | TextNode | ImageNode | InstanceNode;
-
 export type BaseNode = {
   name?: string;
   id?: string;
   props?: Record<string, string>;
   static?: boolean;
+};
+
+export type StyleProps = {
+  fontSize?: number;
+  fontWeight?: number;
+  color?: string;
+  lineHeight?: number;
+  fontFamily?: string;
+  backgroundColor?: string;
+};
+
+export type FrameNode = BaseNode & {
+  type: "frame";
+  children: NodeElement[];
+  style?: StyleProps;
 };
 
 export type BoxNode = BaseNode & {
@@ -29,10 +42,9 @@ export type InstanceNode = BaseNode & {
   componentName: string;
 };
 
-export type StyleProps = {
-  fontSize?: number;
-  fontWeight?: number;
-  color?: string;
-  lineHeight?: number;
-  fontFamily?: string;
-};
+export type NodeElement =
+  | FrameNode
+  | BoxNode
+  | TextNode
+  | ImageNode
+  | InstanceNode;
