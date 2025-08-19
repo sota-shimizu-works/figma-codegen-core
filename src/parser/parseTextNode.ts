@@ -1,6 +1,14 @@
 import { TextNode } from "../types/node-element";
 
 export function parseTextNode(node: any): TextNode {
+  const lineHeightValue =
+    typeof node.style?.lineHeightPercentFontSize === "number"
+      ? node.style.lineHeightPercentFontSize / 100
+      : typeof node.style?.lineHeightPx === "number" &&
+          typeof node.style?.fontSize === "number"
+        ? node.style.lineHeightPx / node.style.fontSize
+        : undefined;
+
   return {
     type: "text",
     content: node.characters ?? "",
@@ -8,11 +16,8 @@ export function parseTextNode(node: any): TextNode {
       fontSize: node.style?.fontSize,
       fontWeight: node.style?.fontWeight,
       lineHeight:
-        typeof node.style?.lineHeightPercentFontSize === "number"
-          ? node.style.lineHeightPercentFontSize / 100
-          : typeof node.style?.lineHeightPx === "number" &&
-            typeof node.style?.fontSize === "number"
-          ? node.style.lineHeightPx / node.style.fontSize
+        typeof lineHeightValue === "number"
+          ? Math.round(lineHeightValue * 100) / 100
           : undefined,
       fontFamily: node.style?.fontFamily,
       color: node.fills?.[0]?.color
