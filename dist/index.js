@@ -13,14 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
+const fetchFigmaFile_1 = require("./utils/fetchFigmaFile");
+const walkAndParse_1 = require("./walker/walkAndParse");
 dotenv_1.default.config();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        const fileKey = process.env.FIGMA_FILE_KEY;
-        if (!fileKey) {
-            console.error("Please set the FIGMA_FILE_KEY environment variable.");
-            process.exit(1);
-        }
+        const json = yield (0, fetchFigmaFile_1.fetchFigmaFile)();
+        const parsed = (0, walkAndParse_1.walkAndParse)(json.document);
     });
 }
 main().catch((error) => {

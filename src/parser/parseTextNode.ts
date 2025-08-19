@@ -7,6 +7,14 @@ export function parseTextNode(node: any): TextNode {
     style: {
       fontSize: node.style?.fontSize,
       fontWeight: node.style?.fontWeight,
+      lineHeight:
+        typeof node.style?.lineHeightPercentFontSize === "number"
+          ? node.style.lineHeightPercentFontSize / 100
+          : typeof node.style?.lineHeightPx === "number" &&
+            typeof node.style?.fontSize === "number"
+          ? node.style.lineHeightPx / node.style.fontSize
+          : undefined,
+      fontFamily: node.style?.fontFamily,
       color: node.fills?.[0]?.color
         ? rgbaFromColor(node.fills[0].color)
         : undefined,
