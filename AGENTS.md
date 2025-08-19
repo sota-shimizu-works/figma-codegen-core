@@ -1,3 +1,7 @@
+# 環境変数について
+
+ルートディレクトに`.env.example`があるのでコピーし、`.env`としてしようしてください。
+
 # figma-codegen-core について
 
 figma-codegen-core は Figma の API で取得できるデータをパースして各プラットフォームに変換しやすい形(以下 NodeElements)に変換するライブラリです。
