@@ -1,19 +1,6 @@
-import { FrameNode, BoxNode, NodeElement } from "../types/node-element";
-import { parseNode } from "./parseNode";
+import { FrameNode, BoxNode } from "../types/node-element";
 
 export function parseFrameNode(node: any): FrameNode | BoxNode {
-  const style: Record<string, any> = {};
-
-  if (node.fills?.[0]?.color) {
-    style.backgroundColor = rgbaFromColor(node.fills[0].color);
-  }
-
-  const children: NodeElement[] = Array.isArray(node.children)
-    ? node.children
-        .map((child: any) => parseNode(child))
-        .filter((c: NodeElement | null): c is NodeElement => c !== null)
-    : [];
-
   const name = node.name ?? "";
   if (
     name.startsWith("page:") ||
@@ -21,10 +8,15 @@ export function parseFrameNode(node: any): FrameNode | BoxNode {
     name.startsWith(":page") ||
     name.startsWith(":layout")
   ) {
-    return { type: "frame", style, children };
+    return { type: "frame" };
   }
 
-  return { type: "box", style, children };
+  const style: Record<string, any> = {};
+  if (node.fills?.[0]?.color) {
+    style.backgroundColor = rgbaFromColor(node.fills[0].color);
+  }
+
+  return { type: "box", style };
 }
 
 function rgbaFromColor(c: any): string {
