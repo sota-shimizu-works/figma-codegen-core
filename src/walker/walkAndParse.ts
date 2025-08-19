@@ -29,7 +29,7 @@ export function walkAndParse(root: any): WalkResult {
     const { id, name, type } = node;
 
     if (!name || typeof name !== "string") return null;
-    if (name.startsWith("ignore:")) return null;
+    if (name.startsWith("ignore")) return null;
 
     const children: NodeMetaTree[] = [];
 
