@@ -8,7 +8,7 @@ export function parseFrameNode(node: any): FrameNode | BoxNode {
     name.startsWith(":page") ||
     name.startsWith(":layout")
   ) {
-    return { type: "frame", children: [] };
+    return { type: "frame" };
   }
 
   const style: Record<string, any> = {};
@@ -16,7 +16,7 @@ export function parseFrameNode(node: any): FrameNode | BoxNode {
     style.backgroundColor = rgbaFromColor(node.fills[0].color);
   }
 
-  return { type: "box", style, children: [] };
+  return { type: "box", style };
 }
 
 function rgbaFromColor(c: any): string {

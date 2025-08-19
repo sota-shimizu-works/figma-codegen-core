@@ -16,13 +16,13 @@ export type StyleProps = {
 
 export type FrameNode = BaseNode & {
   type: "frame";
-  children: NodeElement[];
+  children?: NodeElement[];
   style?: StyleProps;
 };
 
 export type BoxNode = BaseNode & {
   type: "box";
-  children: NodeElement[];
+  children?: NodeElement[];
   style?: StyleProps;
 };
 
