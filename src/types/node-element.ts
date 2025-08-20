@@ -14,6 +14,9 @@ export type StyleProps = {
   backgroundColor?: string;
   display?: string;
   flexDirection?: string;
+  gridTemplateColumns?: string;
+  gridRowGap?: number;
+  gridColumnGap?: number;
   paddingTop?: number;
   paddingRight?: number;
   paddingBottom?: number;

@@ -21,6 +21,19 @@ export function parseFrameNode(node: any): FrameNode | BoxNode {
     style.flexDirection = "row";
   }
 
+  if (node.layoutMode === "GRID") {
+    style.display = "grid";
+    if (typeof node.gridColumnCount === "number") {
+      style.gridTemplateColumns = `repeat(${node.gridColumnCount}, 1fr)`;
+    }
+    if (typeof node.gridRowGap === "number") {
+      style.gridRowGap = node.gridRowGap;
+    }
+    if (typeof node.gridColumnGap === "number") {
+      style.gridColumnGap = node.gridColumnGap;
+    }
+  }
+
   if (typeof node.paddingTop === "number") {
     style.paddingTop = node.paddingTop;
   }
