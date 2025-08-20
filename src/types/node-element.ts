@@ -3,6 +3,8 @@ export type BaseNode = {
   id?: string;
   props?: Record<string, string>;
   static?: boolean;
+  style?: StyleProps;
+  tailwindClasses?: string;
 };
 
 export type StyleProps = {
@@ -25,20 +27,15 @@ export type StyleProps = {
 
 export type FrameNode = BaseNode & {
   type: "frame";
-  children?: NodeElement[];
-  style?: StyleProps;
 };
 
 export type BoxNode = BaseNode & {
   type: "box";
-  children?: NodeElement[];
-  style?: StyleProps;
 };
 
 export type TextNode = BaseNode & {
   type: "text";
   content: string;
-  style?: StyleProps;
 };
 
 export type ImageNode = BaseNode & {
