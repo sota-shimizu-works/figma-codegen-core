@@ -1,4 +1,5 @@
 import { TextNode } from "../types/node-element";
+import { cn } from "../utils/cn";
 
 export function parseTextNode(node: any): TextNode {
   const lineHeightValue =
@@ -9,21 +10,43 @@ export function parseTextNode(node: any): TextNode {
         ? node.style.lineHeightPx / node.style.fontSize
         : undefined;
 
+  const style: Record<string, any> = {};
+  const tw: string[] = [];
+
+  if (typeof node.style?.fontSize === "number") {
+    style.fontSize = node.style.fontSize;
+    tw.push(`text-[${node.style.fontSize}px]`);
+  }
+
+  if (typeof node.style?.fontWeight === "number") {
+    style.fontWeight = node.style.fontWeight;
+    tw.push(`font-[${node.style.fontWeight}]`);
+  }
+
+  if (typeof lineHeightValue === "number") {
+    const lineHeight = Math.round(lineHeightValue * 100) / 100;
+    style.lineHeight = lineHeight;
+    tw.push(`leading-[${lineHeight}]`);
+  }
+
+  if (typeof node.style?.fontFamily === "string") {
+    style.fontFamily = node.style.fontFamily;
+    const fontFamily = node.style.fontFamily.replace(/'/g, "\\'");
+    tw.push(`font-['${fontFamily}']`);
+  }
+
+  if (node.fills?.[0]?.color) {
+    style.color = rgbaFromColor(node.fills[0].color);
+    tw.push(`text-[${style.color.replace(/\s/g, "")}]`);
+  }
+
+  const tailwindClasses = tw.length ? cn(...tw) : undefined;
+
   return {
     type: "text",
     content: node.characters ?? "",
-    style: {
-      fontSize: node.style?.fontSize,
-      fontWeight: node.style?.fontWeight,
-      lineHeight:
-        typeof lineHeightValue === "number"
-          ? Math.round(lineHeightValue * 100) / 100
-          : undefined,
-      fontFamily: node.style?.fontFamily,
-      color: node.fills?.[0]?.color
-        ? rgbaFromColor(node.fills[0].color)
-        : undefined,
-    },
+    style,
+    ...(tailwindClasses ? { tailwindClasses } : {}),
   };
 }
 
