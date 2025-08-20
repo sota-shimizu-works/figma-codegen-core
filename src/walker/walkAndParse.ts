@@ -7,6 +7,7 @@ type NodeMetaTree = {
   name: string;
   type: string;
   style?: any;
+  tailwindClasses?: string;
   content?: string | null;
   children?: NodeMetaTree[];
 };
@@ -46,6 +47,10 @@ export function walkAndParse(root: any): WalkResult {
       type,
       style:
         parsedNode && "style" in parsedNode ? (parsedNode as any).style : {},
+      tailwindClasses:
+        parsedNode && "tailwindClasses" in parsedNode
+          ? (parsedNode as any).tailwindClasses
+          : "",
       content:
         parsedNode && "content" in parsedNode ? parsedNode.content : null,
       ...(children.length > 0 ? { children } : {}),
